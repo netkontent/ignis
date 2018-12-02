@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+  <head>
+      <title>Bubbles demo</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="js/bubbles.js"></script>
+      <link rel="stylesheet" href="css/style.css"/>
+      <script>
+
+          jQuery( document ).ready( function($) {
+
+              // DEMO coded with all requirements
+              $('.startDemo').on('click', function(c) {
+
+                c.preventDefault();
+
+                var demo = $(this).data('demo');
+                    $(this).bubbles({id: demo, bubbles: 10, minSpeed: 100, maxSpeed: 10});
+              });
+
+              // Game on top of reusable plugin
+              $('.startGame').on('click', function(c) {
+
+                c.preventDefault();
+
+                var demo = $(this).data('demo');
+
+                    var options = {
+                      id: demo,
+                      bubbles: 100,
+                      initPosition: ['random', 100],
+                      minSize: 60,
+                      maxSize: 60,
+                      minSpeed: 5,
+                      maxSpeed: 50,
+                      delay: 3000,
+                      direction: 'up',
+                      bounce: false,
+                      afterCreate: function( wrap ) {
+
+                          var bear = $('<div/>', {class: 'bear'});
+
+                          wrap.append( bear );
+
+                      },
+                      beforeRemove: function(bubble, ctrl) {
+
+                          var wrap = bubble.parent(),
+                              bear = wrap.find('.bear');
+
+                              wrap.addClass('bursted')
+
+                          setTimeout(
+                            function() {
+
+                              bubble.remove();
+
+                              bear.animate(
+                                {top:'+=500'},
+                                500,
+                                function() {
+                                  wrap.remove();
+                                }
+                              );
+
+                            },
+                            100
+                            );
+
+                          ctrl.delay = 3000;
+
+                      return ctrl;
+                      }
+                    };
+
+                    $(this).bubbles( options );
+              });
+          });
+
+      </script>
+      <style>
+
+      </style>
+  <head>
+  <body>
+      <div id="wrapper">
+          <div id="intro">
+              <button class="startDemo" data-demo="basic">Start Demo</button>
+              <button class="startGame" data-demo="game">Start Game</button>
+          </div>
+      </div>
+  </body>
+</html>
