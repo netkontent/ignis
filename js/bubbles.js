@@ -202,7 +202,7 @@
                         hold = true; // stop flying
 
                         _bubbleBounce( bubbleWrap.find('.bubble'), bubbleSpeed );
-                        kick = 15;
+                        //kick = 15;
 
                     }else {
                       kick = 1;
