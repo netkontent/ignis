@@ -185,8 +185,12 @@
                 kick          = 1,
                 hold          = null;
 
-            setInterval(
+            var animate = setInterval(
               function() {
+
+                  if( ! bubbleWrap ) {
+                    clearInterval( animate );
+                  }
 
                   if( ! hold ) {
 
