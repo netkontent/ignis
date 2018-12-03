@@ -182,8 +182,8 @@
                 bubbleSpeed   = getBubbleSpeed(s.minSpeed, s.maxSpeed),
                 dir           = getBubbleDirection( s.direction ), // TODO add geometric
                 bounce        = 'initial',
-                kick          = 1,
                 hold          = null;
+
 
             var animate = setInterval(
               function() {
@@ -202,22 +202,36 @@
                         hold = true; // stop flying
 
                         _bubbleBounce( bubbleWrap.find('.bubble'), bubbleSpeed );
-                        //kick = 15;
 
-                    }else {
-                      kick = 1;
+                        if( dir.agnle !== 0 && dir.angle !== 180 ) {
+
+                            var edge = findBubbleEdge( bubbleWrap );
+
+                            switch( edge ) {
+                                case 'top':
+                                case 'bottom':
+                                      _angle = 360 - (180 + dir.angle);
+                                  break;
+                                case 'left':
+                                case 'right':
+                                      _angle = 360 - dir.angle;
+                                  break;
+                            }
+
+                            dir = getBubbleDirection( s.direction, _angle );
+                          }
                     }
 
 
                     if( bounce == 'initial' ) {
 
-                      x += dir.x * $bubblingHoop * kick;
-                      y += dir.y * $bubblingHoop * kick;
+                      x += dir.x * $bubblingHoop;
+                      y += dir.y * $bubblingHoop;
 
                     } else {
 
-                      x -= dir.x * $bubblingHoop * kick;
-                      y -= dir.y * $bubblingHoop * kick;
+                      x -= dir.x * $bubblingHoop;
+                      y -= dir.y * $bubblingHoop;
                     }
 
                     bubbleWrap.css({
@@ -379,20 +393,25 @@
         }
 
 
-        function getBubbleDirection( mode ) {
+        function getBubbleDirection( mode, angle ) {
 
-            var angle=0,
-                alpha=0;
+            var alpha=0;
 
-            switch( mode ) {
-              case 'random':  angle = Math.floor( Math.random() * 360 + 1 ); break;
-              case 'up':      angle = 270; break;
-              default: 0;
+                angle = typeof angle !== 'undefined' ? angle : null;
+
+            if( ! angle ) {
+
+              switch( mode ) {
+                case 'random':  angle = Math.floor( Math.random() * 360 + 1 ); break;
+                case 'up':      angle = 270; break;
+                default: 0;
+              }
             }
+
 
             alpha = angle * Math.PI / 180;
 
-        return {x: Math.cos(alpha), y: Math.sin(alpha)};
+        return {x: Math.cos(alpha), y: Math.sin(alpha), angle: angle};
         }
 
 
