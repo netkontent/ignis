@@ -182,7 +182,8 @@
                 bubbleSpeed   = getBubbleSpeed(s.minSpeed, s.maxSpeed),
                 dir           = getBubbleDirection( s.direction ), // TODO add geometric
                 bounce        = 'initial',
-                hold          = null;
+                hold          = null,
+                kick          = 1;
 
 
             var animate = setInterval(
@@ -220,6 +221,11 @@
 
                             dir = getBubbleDirection( s.direction, _angle );
                           }
+
+                          kick = 5;
+                          
+                    }else {
+                      kick = 1;
                     }
 
 
