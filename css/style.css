@@ -1,8 +1,8 @@
-body { margin:0; padding: 0 }
+body { margin:0; padding: 0 ; background: #cfe7fa }
   #wrapper { padding: 10px; }
-    #intro { max-width: 500px; margin: 100px auto; }
+    #intro { max-width: 1000px; margin: 100px auto; }
 
-  #basic { background: linear-gradient(to bottom, #cfe7fa 0%,#6393c1 100%); }
+  #basic {  }
     #basic .bubble { border: solid 1px;  opacity: .6; }
     #basic .bubble:hover { opacity: 1; }
 
@@ -13,3 +13,9 @@ body { margin:0; padding: 0 }
         #game .bursted .bear { position: absolute; background-position: 100% 0!important;}
 
        #game .bursted .bubble { background-position: 0 0!important; }
+
+       table td { vertical-align: top; }
+
+      .form {  }
+        .form label { display: inline-block; min-width: 200px; }
+        .form input[type=number] { max-width: 50px; }

@@ -30,12 +30,13 @@
         var s = $.extend({
             id:               '',
             bubbles:          100,        // number of bubbles to display
-            initPosition:     [50, 50],   // bubbles starting point - percentage x,y
+            initPositionX:    50,         // bubbles starting point - percentage x
+            initPositionY:    50,         // bubbles starting point - percentage y
             minSpeed:         200,        // minimum bubble speed (miliseconds),
             maxSpeed:         10,         // maximum bubble speed (miliseconds),
             minSize:          32,         // min bubble size (px),
             maxSize:          64,         // max bubble size (px),
-            delay:            100,        // deley between showing bubbles (miliseconds)
+            delay:            10,         // deley between showing bubbles (miliseconds)
             direction:        'random',   // static mode for direction of movement (random/up)
             bounce:           true,
             afterCreate:      null,
@@ -56,6 +57,9 @@
             if( opts.maxSize > $bubbleSizeLimit ) {
                 opts.maxSize = $bubbleSizeLimit;
             }
+
+            //merge
+            opts.initPosition = [opts.initPositionX, opts.initPositionY];
 
         return opts;
         }
@@ -223,7 +227,7 @@
                           }
 
                           kick = 5;
-                          
+
                     }else {
                       kick = 1;
                     }

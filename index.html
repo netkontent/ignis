@@ -10,12 +10,19 @@
           jQuery( document ).ready( function($) {
 
               // DEMO coded with all requirements
-              $('.startDemo').on('click', function(c) {
+              $('#demo').on('submit', function(c) {
 
                 c.preventDefault();
 
-                var demo = $(this).data('demo');
-                    $(this).bubbles({id: demo, bubbles: 150});
+                var options = {};
+
+                $(this).find('input').each( function() {
+                    options[ $(this).attr('name') ] = parseInt( $(this).val() );
+                } );
+
+                options.id = 'basic';
+
+                $(this).bubbles(options);
               });
 
               // Game on top of reusable plugin
@@ -28,12 +35,13 @@
                     var options = {
                       id: demo,
                       bubbles: 100,
-                      initPosition: ['random', 100],
+                      initPositionX: 'random',
+                      initPositionY: 100,
                       minSize: 60,
                       maxSize: 60,
                       minSpeed: 5,
                       maxSpeed: 50,
-                      delay: 3000,
+                      delay: 2000,
                       direction: 'up',
                       bounce: false,
                       afterCreate: function( wrap ) {
@@ -85,9 +93,49 @@
   <body>
       <div id="wrapper">
           <div id="intro">
-              <button class="startDemo" data-demo="basic">Start Demo</button>
-              <button class="startGame" data-demo="game">Start Game</button>
+                <table border="0">
+                    <tr>
+                      <th>
+                        <h3 style="text-align: center">Demo Options</h3>
+                      </th>
+
+                    <th>
+                      &nbsp;
+                    <th>
+                      <th>
+                        <h3 style="text-align: center">Play the Game</h3>
+                      </th>
+                    </tr>
+                    <tr>
+                        <td >
+
+                            <form id="demo" class="form">
+                                <p><label for="bubbles">Number of Bubbles:</label>
+                                  <input type="number" id="bubbles" name="bubbles" value="150"/></p>
+                                <p><label for="initPositionX">Position (percentage):</label>
+                                  x:<input type="number" id="initPositionX" name="initPositionX"  value="50"/>&nbsp;y:<input type="number" id="initPositionY" name="initPositionY" value="50"/>
+                                <p><label for="minSpeed">Min Speed</label>
+                                  <input type="number" id="minSpeed" name="minSpeed" value="200"/></p>
+                                <p><label for="maxSpeed">Max Speed</label>
+                                  <input type="number" id="maxSpeed" name="maxSpeed" value="20"/></p>
+                                <p><label for="minSize">Min Size</label>
+                                  <input type="number" id="minSize" name="minSize" value="32"/></p>
+                                <p><label for="maxSize">Max size</label>
+                                  <input type="number" id="maxSize" name="maxSize" value="64"/></p>
+                                <p style="text-align: center; margin-top:20px;">
+                                    <input type="submit" name="start_demo" value="Start Demo"/>
+                                    <input type="hidden" name="id" value="basic"/>
+                                </p>
+                            </form>
+                        </td>
+                        <td style="width: 100px;"></td>
+                        <td style="text-align: center">
+                            <button class="startGame" data-demo="game">Start Game</button>
+                        </td>
+                    </tr>
+                <table>
           </div>
+
       </div>
   </body>
 </html>
